@@ -9,11 +9,11 @@ app = FastAPI()
 system = None
 
 @app.get("/phase-change-diagram/")
-def api_get_volumes(pressure: int):
+async def api_get_volumes(pressure: int):
     return get_volumes(pressure)
 
 @app.get("/status/")
-def api_get_system():
+async def api_get_system():
     global system
     system = get_system()
     return {
@@ -21,10 +21,9 @@ def api_get_system():
     }
 
 @app.get("/repair-bay/")
-def api_repair_bay():
+async def api_repair_bay():
     code = ""
     if system:
-        print(system)
         code = systems[system]
     html_content = f"""
     <!DOCTYPE html>
@@ -40,5 +39,5 @@ def api_repair_bay():
     return HTMLResponse(content=html_content, status_code=200)
 
 @app.post("/teapot/")
-def api_teapot():
+async def api_teapot():
     raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail="I'm a teapot.")
