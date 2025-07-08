@@ -12,7 +12,7 @@ system = None
 async def api_get_volumes(pressure: int):
     return get_volumes(pressure)
 
-@app.get("/status/")
+@app.get("/status")
 async def api_get_system():
     global system
     system = get_system()
@@ -20,7 +20,7 @@ async def api_get_system():
         "damaged_system": system
     }
 
-@app.get("/repair-bay/")
+@app.get("/repair-bay")
 async def api_repair_bay():
     code = ""
     if system:
@@ -38,6 +38,6 @@ async def api_repair_bay():
     """
     return HTMLResponse(content=html_content, status_code=200)
 
-@app.post("/teapot/")
+@app.post("/teapot")
 async def api_teapot():
     raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail="I'm a teapot.")
