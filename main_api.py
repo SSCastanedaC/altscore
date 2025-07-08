@@ -9,8 +9,8 @@ app = FastAPI()
 system = None
 
 @app.get("/phase-change-diagram")
-async def api_get_volumes(pressure: int):
-    return get_volumes(pressure)
+async def api_get_volumes(pressure: str):
+    return get_volumes(float(pressure))
 
 @app.get("/status")
 async def api_get_system():
